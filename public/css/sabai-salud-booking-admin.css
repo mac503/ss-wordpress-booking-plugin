@@ -1,0 +1,242 @@
+.grain.booking::after{
+  content: attr(data-time) " - " attr(data-name) " - " attr(data-type);
+  color: white;
+  padding: 2px;
+  background-color: purple;
+  opacity: .8;
+  pointer-events: none;
+  width: 100%;
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  margin: auto;
+  width: 99%;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 11;
+}
+
+[data-mode="allow-select-booking"] .grain.booking span{
+  cursor: pointer;
+}
+
+.grain.booking[data-confirmed="0"]:not(.selected)::after{
+  background: repeating-linear-gradient(
+    135deg,
+    purple,
+    purple 8px,
+    #903090 8px,
+    #903090 16px
+  );
+  color: yellow;
+}
+
+#ss_new_booking_form input.touched:invalid{
+  background-color: pink;
+}
+
+[data-mode="accept-selection"] .grain.booking[data-confirmed="0"][data-selection-allowed="true"]:hover::after, [data-mode="accept-selection"] .grain.booking.selected[data-confirmed="0"]::after{
+  background: #800050;
+  color: white;
+}
+
+.grain.booking.highlighted::after{
+  background-color: #800050;
+}
+
+.grain.booking[data-confirmed="0"].highlighted:not(.selected)::after{
+  background: repeating-linear-gradient(
+    135deg,
+    #800050,
+    #800050 8px,
+    #903060 8px,
+    #903060 16px
+  );
+}
+
+[data-display-prep-time="true"] .grain.booking::before,
+[data-display-prep-time="true"][data-mode="accept-selection"] .grain[data-selection-allowed="true"]:hover::before,
+[data-display-prep-time="true"][data-mode="accept-selection"] .grain.selected::before{
+  content: "";
+  color: white;
+  background-color: purple;
+  opacity: .3;
+  pointer-events: none;
+  width: 100%;
+  display: block;
+  position: absolute;
+  left: 2px;
+  box-sizing: border-box;
+  margin: auto;
+  width: 99%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+[data-mode="accept-selection"] .grain[data-selection-allowed="true"]:hover::after, .grain.selected::after{
+  background-color: #800050;
+}
+
+[data-mode="accept-selection"] .grain.highlighted:not(.selected):not(:hover)::after{
+  opacity: 0.3;
+}
+[data-mode="accept-selection"] .grain.highlighted:not(.selected):not(:hover)::before{
+  opacity: 0.3;
+}
+
+[data-display-prep-time="true"][data-mode="accept-selection"] .grain[data-selection-allowed="true"]:hover::before{
+  z-index: 100;
+}
+
+.grain[data-prep-slots="1"].booking::before,
+.grain[data-prep-slots="1"].grain[data-selection-allowed="true"]:hover::before,
+.grain.selected[data-prep-slots="1"]::before{
+  top: -1em;
+  height: 1em;
+}
+.grain[data-prep-slots="2"].booking::before,
+.grain[data-prep-slots="2"].grain[data-selection-allowed="true"]:hover::before,
+.grain[data-prep-slots="2"].selected::before{
+  top: -2em;
+  height: 2em;
+}
+.grain[data-prep-slots="3"].booking::before,
+.grain[data-prep-slots="3"].grain[data-selection-allowed="true"]:hover::before,
+.grain[data-prep-slots="3"].selected::before{
+  top: -3em;
+  height: 3em;
+}
+.grain[data-prep-slots="4"].booking::before,
+.grain[data-prep-slots="4"].grain[data-selection-allowed="true"]:hover::before,
+.grain[data-prep-slots="4"].selected::before{
+  top: -4em;
+  height: 4em;
+}
+
+#ss_booking_menu, #ss_booking_day_controls, #ss_booking_day_controls, #ss_booking_item_actions{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#ss_booking_menu div, #ss_booking_day_controls div, #ss_booking_day_controls div, #ss_booking_item_actions div{
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+}
+#ss_booking_menu:not([data-allow]) div{
+  cursor: not-allowed;
+}
+#ss_booking_item_dialog div{
+  display: inline-block;
+  margin-right: 1em;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+}
+#ss_booking_current_action{
+  margin-top: .5em;
+  padding: .5em;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+}
+.closeIcon{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.closeIcon::before, .clearIcon::before{
+  content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path stroke="black" fill="transparent" stroke-width="5" stroke-linecap="round" d="M 10,10 L 30,30 M 30,10 L 10,30" /></svg>');
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  display: block;
+}
+.closeIcon::before{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.clearIcon::before{
+  stroke: red;
+}
+.clearIcon{
+  display: inline-block;
+}
+
+.workingIndicator::before{
+  content: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle r="5" cx="55" cy="40"></circle><circle r="5" cx="50.60660171779821" cy="50.60660171779821"></circle><circle r="5" cx="40" cy="55"></circle><circle r="5" cx="29.393398282201787" cy="50.60660171779821"></circle><circle r="5" cx="25" cy="40"></circle><circle r="5" cx="29.393398282201787" cy="29.393398282201787"></circle><circle r="5" cx="40" cy="25"></circle><circle r="5" cx="50.60660171779821" cy="29.393398282201787"></circle></svg>');
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 25%, black);
+  mask-image: linear-gradient(to bottom right, transparent 25%, black);
+  display: block;
+  height: 5em;
+  width: 5em;
+  margin: auto;
+  animation: spin 1.8s linear infinite;
+}
+.workingIndicator.small::before{
+  height: 1.5em;
+  width: 1.5em;
+}
+@keyframes spin{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+#ss_booking_item_dialog{
+  position: fixed;
+  border: 1px solid black;
+  top: 40vh;
+  width: 50vw;
+  margin: auto;
+  background-color: white;
+  border-radius: 5px;
+  padding: 2em;
+  z-index: 2001;
+}
+body.overlay::before{
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.1);
+}
+
+#ss_booking_list_list div{
+  border: 1px solid black;
+  background-color: #f9eaf9;
+  border-radius: 5px;
+  margin-bottom: .5em;
+  padding: 1em;
+  position: relative;
+}
+#ss_booking_list_list div[data-action="zoom-to-booking"]{
+  cursor: pointer;
+}
+#ss_booking_list_list div div[data-action="duplicate-booking"]{
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  margin-right: 1em;
+}
