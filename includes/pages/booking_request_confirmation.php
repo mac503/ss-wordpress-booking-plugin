@@ -1,6 +1,7 @@
 <?php
 function booking_request_confirmation(){
   session_start();
+  ob_start();
   $name = $_SESSION['DATA_'.$_GET['data_id']]['name'];
   $type = $_SESSION['DATA_'.$_GET['data_id']]['type'];
   $time = $_SESSION['DATA_'.$_GET['data_id']]['time'];
@@ -8,5 +9,6 @@ function booking_request_confirmation(){
 
   echo "$name, we will contact you to confirm your request for $type at $time on $date.<p><p>";
   echo "Thank you.";
+  return ob_get_clean();
 }
 ?>
