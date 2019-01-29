@@ -7,38 +7,44 @@
     //TODO replace this with a lookup to database, once figured out where it will be stored
     $defaultOpenings = array(
       array(
-        array("start" => 14, "end" => 16)
+        array("start" => 14.5*60, "end" => 16*60)
       ),
       array(
-        array("start" => 9, "end" => 13),
-        array("start" => 17, "end" => 21)
+        array("start" => 9*60, "end" => 13*60),
+        array("start" => 17*60, "end" => 21*60)
       ),
       array(
-        array("start" => 9, "end" => 13),
-        array("start" => 17, "end" => 21)
+        array("start" => 9*60, "end" => 13*60),
+        array("start" => 17*60, "end" => 21*60)
       ),
       array(
-        array("start" => 9, "end" => 13),
-        array("start" => 17, "end" => 21)
+        array("start" => 9*60, "end" => 13*60),
+        array("start" => 17*60, "end" => 21*60)
       ),
       array(
-        array("start" => 9, "end" => 13),
-        array("start" => 17, "end" => 21)
+        array("start" => 9*60, "end" => 13*60),
+        array("start" => 17*60, "end" => 21*60)
       ),
       array(
-        array("start" => 9, "end" => 13),
-        array("start" => 17, "end" => 21)
+        array("start" => 9*60, "end" => 13*60),
+        array("start" => 17*60, "end" => 21*60)
       ),
       array(
-        array("start" => 9, "end" => 13)
+        array("start" => 9*60, "end" => 13*60)
       )
     );
 
     global $wpdb;
 
     if($forUpdate == true) $lockString = " for update";
-    $overrideOpenings = $wpdb->get_results("select * from {$wpdb->prefix}ss_booking_windows where (windowsdate between '{$data["startDate"]}' and '{$data["endDate"]}') and IF(start <> 0 and end <> 0, 0, 1)$lockString", OBJECT_K );
-    $data["query"] = "select * from {$wpdb->prefix}ss_booking_windows where (windowsdate between '{$data["startDate"]}' and '{$data["endDate"]}') and IF(start <> 0 and end <> 0, 0, 1)$lockString";
+    $overrideOpenings = $wpdb->get_results("select * from {$wpdb->prefix}ss_booking_windows where (windowsdate between '{$data["startDate"]}' and '{$data["endDate"]}') and IF(start <> 0 and end <> 0, 1, 0)$lockString", ARRAY_A );
+    $overrideOpeningsTemp = array();
+
+    foreach($overrideOpenings as $opening){
+      if(array_key_exists($opening["windowsdate"], $overrideOpeningsTemp) == false) $overrideOpeningsTemp[$opening["windowsdate"]] = array();
+      $overrideOpeningsTemp[$opening["windowsdate"]][intval($opening["idWithinDay"])] = array("start"=>$opening["start"], "end"=>$opening["end"]);
+    }
+    $overrideOpenings = $overrideOpeningsTemp;
 
     //iterate through days
     for($i=0; $i<$data["totalDays"]; $i++){
@@ -54,8 +60,8 @@
       }
 
       foreach($dayOpenings as $opening){
-        $startOffset = ceil($opening["start"]/60 - $data["dayStart"]) / ($data["granularity"] / 60);
-        $endOffset = ceil($opening["end"]/60 - $data["dayStart"]) / ($data["granularity"] / 60);
+        $startOffset = ceil(($opening["start"]/60 - $data["dayStart"]) / ($data["granularity"] / 60));
+        $endOffset = ceil(($opening["end"]/60 - $data["dayStart"]) / ($data["granularity"] / 60));
         foreach($data["days"][$i] as $j=>$slot){
           if($startOffset <= $j && $j < $endOffset) $data["days"][$i][$j] = 1;
         }
