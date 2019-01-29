@@ -494,9 +494,9 @@ jQuery(document).ready(function(){
 					document.querySelector('#ss_booking_current_action').innerHTML = '<b>Opening Hours</b><br/>Leave everything blank to use default for that day.<p>' + Array(5).fill().map((x, i)=>`
 						<div>
 							<label for='ss_booking_availability_start_${i}'>Open</label>
-							<input type='time' id='ss_booking_availability_start_${i}' min='00:00' max='24:00' value='${bookingManager.availability[date][i]['start']}'></input>
+							<input type='time' id='ss_booking_availability_start_${i}' min='00:00' max='24:00' step='1800' value='${bookingManager.availability[date][i]['start']}'></input>
 							<label for='ss_booking_availability_end_${i}'>Close</label>
-							<input type='time' id='ss_booking_availability_end_${i}' min='00:00' max='24:00' value='${bookingManager.availability[date][i]['end']}'></input>
+							<input type='time' id='ss_booking_availability_end_${i}' min='00:00' max='24:00' step='1800' value='${bookingManager.availability[date][i]['end']}'></input>
 							<div class='clearIcon' data-action='clear-availability-row'></div>
 						</div>
 					`).join('')+`
