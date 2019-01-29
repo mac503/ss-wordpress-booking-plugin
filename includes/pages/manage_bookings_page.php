@@ -1,5 +1,6 @@
 <?php
 function manage_bookings_page(){
+  ob_start();
 ?>
 <div id='ss_booking_menu'>
   <div data-action='show-unconfirmed'>Unconfirmed</div>
@@ -23,5 +24,6 @@ function manage_bookings_page(){
   <div id='ss_booking_list_list'></div>
 </div>
 <?php
+  return ob_get_clean();
 }
 ?>

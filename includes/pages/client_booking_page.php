@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( 'Access denied.' );
 
 function client_booking_page(){
+  ob_start();
   session_start();
   ?>
   Please choose a date and time from the calendar below.<p>
@@ -71,6 +72,7 @@ function client_booking_page(){
     </form>
   </div>
   <?php
+  return ob_get_clean();
 }
 
 ?>
