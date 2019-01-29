@@ -2,8 +2,6 @@
 
 defined( 'ABSPATH' ) or die( 'Access denied.' );
 
-register_activation_hook( __FILE__, 'plugin_install' );
-
 function plugin_install(){
 
   //TODO automatically create pages with content
