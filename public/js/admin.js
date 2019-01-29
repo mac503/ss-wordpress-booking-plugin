@@ -464,7 +464,7 @@ jQuery(document).ready(function(){
 							document.querySelector('#ss_booking_current_action').style.display = 'none';
 							if(res.success){
 								calendar.availability = res.data.days;
-								bookingManager.availability = res.availability;
+								bookingManager.availability = res.data.availability;
 								calendar.drawDay(calendar.displayedDate);
 								bookingManager.setMode('selecting');
 							}
