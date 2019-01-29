@@ -22,6 +22,7 @@ function plugin_install(){
 
 		$sql1 = "CREATE TABLE $table_name (
 		  id mediumint(9) NOT NULL AUTO_INCREMENT,
+      datetimeRequested datetime NOT NULL,
 		  start datetime NOT NULL,
 			length mediumint(5) NOT NULL,
 			type tinytext NOT NULL,
