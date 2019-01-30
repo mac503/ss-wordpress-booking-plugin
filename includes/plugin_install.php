@@ -45,9 +45,32 @@ function plugin_install(){
 		  PRIMARY KEY  (windowsdate, idWithinDay)
 		) $charset_collate;";
 
+		$table_name = $wpdb->prefix . "ss_booking_types";
+
+		$sql3 = "CREATE TABLE $table_name (
+      id mediumint(9) NOT NULL AUTO_INCREMENT,
+      name tinytext NOT NULL,
+      displayname tinytext NOT NULL,
+      length mediumint(9) NOT NULL,
+      allowbookings tinyint(1) NOT NULL,
+		  PRIMARY KEY  (id)
+		) $charset_collate;";
+
+    $table_name = $wpdb->prefix . "ss_booking_default_windows";
+
+		$sql4 = "CREATE TABLE $table_name (
+      weekday tinyint(1) NOT NULL,
+      idWithinDay tinyint(1) NOT NULL,
+      start smallint(6),
+      end smallint(6),
+		  PRIMARY KEY  (weekday, idWithinDay)
+		) $charset_collate;";
+
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql1 );
 		dbDelta( $sql2 );
+    dbDelta( $sql3 );
+		dbDelta( $sql4 );
 }
 
 ?>
