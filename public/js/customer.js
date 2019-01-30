@@ -48,6 +48,8 @@ jQuery(document).ready(function(){
         calendar.drawDay(passedDate);
       }
 
+		  calendar.dateBox.drawBox(calendar.displayedDate, calendar.div.querySelector('.sabai-salud-calendar-date'), calendar.displayedDate);
+
       //hide the date time entry components - javascript will populate these
       form.querySelector('#dateTimeEntry').style.display = 'none';
 
