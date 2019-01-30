@@ -3,18 +3,17 @@ body, input, select{
   box-sizing: border-box;
 }
 
-#calendar-form{
+#ss_booking_calendar_form{
   margin: auto;
-  width: 50%;
+  margin-top: 2em;
+  width: 40%;
 }
 
-#calendar{
-  margin: auto;
-  width: 80%;
-}
 .sabai-salud-calendar{
   user-select: none;
   cursor: default;
+  width: 50%;
+  margin: auto;
 }
 .sabai-salud-calendar-header{
   display: flex;
@@ -24,7 +23,24 @@ body, input, select{
   margin-bottom: .5em;
 }
 .sabai-salud-calendar-date{
+  display: inline-block;
+  position: relative;
   font-size: 2em;
+  color: #590056;
+  cursor: pointer;
+}
+.sabai-salud-calendar-date::before{
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1em auto;
+  position: relative;
+  top: .1em;
+  margin-right: 5px;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCA1MCA1MCIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iNTBweCIgaGVpZ2h0PSI1MHB4Ij48ZyBpZD0ic3VyZmFjZTEiPjxwYXRoIHN0eWxlPSJmaWxsOiM1OTAwNTYiIGQ9Ik0gMTIgMCBDIDEwLjkwNjI1IDAgMTAgMC45MDYyNSAxMCAyIEwgMTAgNCBMIDQgNCBDIDIuODM5ODQ0IDQgMiA0LjgzOTg0NCAyIDYgTCAyIDEzIEwgNDggMTMgTCA0OCA2IEMgNDggNC44Mzk4NDQgNDcuMTYwMTU2IDQgNDYgNCBMIDQwIDQgTCA0MCAyIEMgNDAgMC45MDYyNSAzOS4wOTM3NSAwIDM4IDAgTCAzNiAwIEMgMzQuOTA2MjUgMCAzNCAwLjkwNjI1IDM0IDIgTCAzNCA0IEwgMTYgNCBMIDE2IDIgQyAxNiAwLjkwNjI1IDE1LjA5Mzc1IDAgMTQgMCBaIE0gMTIgMiBMIDE0IDIgTCAxNCA4IEwgMTIgOCBaIE0gMzYgMiBMIDM4IDIgTCAzOCA4IEwgMzYgOCBaIE0gMiAxNSBMIDIgNDYgQyAyIDQ3LjE2MDE1NiAyLjgzOTg0NCA0OCA0IDQ4IEwgNDYgNDggQyA0Ny4xNjAxNTYgNDggNDggNDcuMTYwMTU2IDQ4IDQ2IEwgNDggMTUgWiBNIDEyIDIxIEwgMTcgMjEgTCAxNyAyNiBMIDEyIDI2IFogTSAxOSAyMSBMIDI0IDIxIEwgMjQgMjYgTCAxOSAyNiBaIE0gMjYgMjEgTCAzMSAyMSBMIDMxIDI2IEwgMjYgMjYgWiBNIDMzIDIxIEwgMzggMjEgTCAzOCAyNiBMIDMzIDI2IFogTSAxMiAyOCBMIDE3IDI4IEwgMTcgMzMgTCAxMiAzMyBaIE0gMTkgMjggTCAyNCAyOCBMIDI0IDMzIEwgMTkgMzMgWiBNIDI2IDI4IEwgMzEgMjggTCAzMSAzMyBMIDI2IDMzIFogTSAzMyAyOCBMIDM4IDI4IEwgMzggMzMgTCAzMyAzMyBaIE0gMTIgMzUgTCAxNyAzNSBMIDE3IDQwIEwgMTIgNDAgWiBNIDE5IDM1IEwgMjQgMzUgTCAyNCA0MCBMIDE5IDQwIFogTSAyNiAzNSBMIDMxIDM1IEwgMzEgNDAgTCAyNiA0MCBaIE0gMzMgMzUgTCAzOCAzNSBMIDM4IDQwIEwgMzMgNDAgWiAiLz48L2c+PC9zdmc+");
 }
 .sabai-salud-calendar-nav{
   font-size: 1.5em;
@@ -52,10 +68,12 @@ body, input, select{
 }
 .hour-label{
   display: inline-block;
+  margin-right: 3px;
 }
 .grains-holder{
   margin: auto;
   width: 100%;
+  background-color: white;
 }
 .not-allowed{
   cursor: not-allowed;
@@ -66,7 +84,7 @@ body, input, select{
   position: absolute;
   width: 100%;
   background-color: transparent;
-  z-index: 1000;
+  z-index: 1200;
 }
 
 [data-mode="accept-selection"] .grain[data-selection-allowed="true"]:hover::after{
@@ -121,11 +139,35 @@ body, input, select{
 }
 
 .grain.busy{
-  background-color: lightgray;
+  background-color: #F2E5F3;
+}
+.grain.busy>span{
+  background-color: #F2E5F3;
+  border-bottom: 2px solid #F2E5F3;
+  position: relative;
 }
 
-#selected-text[data-date-time]::after{
-  display: inline-block;
-  font-weight: bold;
-  content: "Selected: " attr(data-date-time);
+#selected-text{
+  margin-bottom: 1em;
+}
+
+#reserve-button{
+  display: block;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px){
+  .sabai-salud-calendar{
+    width: 100%;
+  }
+  #ss_booking_calendar_form{
+    width: 100%;
+  }
+  .sabai-salud-calendar-date{
+    font-size: 1.5em;
+  }
+  .sabai-salud-calendar-nav{
+    font-size: 1em;
+    cursor: pointer;
+  }
 }
