@@ -1,0 +1,93 @@
+#ss_booking_confirmation_text{
+  margin: auto;
+  width: 50%;
+}
+
+
+.dateBox{
+  cursor: default;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  user-select: none;
+  font-size: 13px;
+  z-index: 1001;
+}
+.dateBox .shell{
+  position: absolute;
+  top: 1em;
+  left: 0px;
+  background-color: white;
+  z-index: 1000;
+  min-width: 215px;
+  border: 1px solid black;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.dateBox .monthYear{
+  border-bottom: 1px solid black;
+  width: 100%%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.dateBox .monthYear span{
+  margin: 1px auto;
+  cursor: pointer;
+}
+.dateBox .monthYear span:hover{
+  font-weight: bold;
+}
+.dateBox .days, .dateBox .dates, .dateBox .dateBoxRow{
+  overflow: hidden;
+}
+.dateBox .dates{
+  padding: 1px;
+}
+.dateBox .days div, .dateBox .dateBoxRow div{
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  overflow: hidden;
+  padding: 2px;
+}
+.dateBox .days {
+  background-color: #E9E9E9;
+}
+.dateBox .otherMonth{
+  color: gray;
+}
+.dateBox .dates .dateBoxRow div{
+  cursor: pointer;
+}
+.dateBox .dates .dateBoxRow div[data-date-allowed="true"]:hover{
+  background-color: #96DED1;
+}
+.dateBox .dates .dateBoxRow div[data-date-allowed="false"]:hover{
+  cursor: not-allowed;
+}
+.dateBox .dates .dateBoxRow .today{
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 1px;
+}
+.dateBox .dates .dateBoxRow .selected{
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 1px;
+}
+
+.dateBox .clickCover{
+  position: fixed;
+  top: -50vh;
+  left: -50vw;
+  width: 200vh;
+  height: 200vw;
+  background-color: red;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.dateBox .monthYear span.changeMonth[data-date-allowed="false"]{
+  cursor: not-allowed;
+}
