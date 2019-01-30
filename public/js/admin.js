@@ -213,12 +213,12 @@ jQuery(document).ready(function(){
   }
   bookingManager.dialog = function(template){
     document.querySelector('#ss_booking_item_dialog').style.display = 'block';
-    document.body.classList.add('overlay');
+    document.querySelector('.overlay').classList.add('on');
     document.querySelector('#ss_booking_item_dialog').innerHTML = template;
   }
   bookingManager.closeDialog = function(){
     document.querySelector('#ss_booking_item_dialog').style.display = 'none';
-    document.body.classList.remove('overlay');
+    document.querySelector('.overlay').classList.remove('on');
   }
 
   window.addEventListener('input', function(e){
@@ -238,7 +238,6 @@ jQuery(document).ready(function(){
     var t = e.target;
     if(t.dataset.hasOwnProperty('action')){
 			e.preventDefault();
-      console.log(t);
 			if(bookingManager.mode == 'selecting'){
 	      switch(t.dataset.action){
 					case "show-calendar":
