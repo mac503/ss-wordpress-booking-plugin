@@ -46,8 +46,21 @@ SabaiSaludCalendar.prototype.draw = function(div){
     //setup reception of selections (if in that mode)
     if(self.mode == 'acceptSelection' && e.target.parentNode.classList.contains('grain')){
       if(e.target.parentNode.dataset.selectionAllowed == "true"){
-        calendar.select(self.displayedDate, e.target.parentNode.dataset.time, self.selectedType);
+        calendar.select(self.displayedDate, e.target.parentNode.dataset.time);
       }
+    }
+    if(e.target.dataset.eventsHandler == 'date-box-click-cover'){
+      e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    }
+    if(e.target.dataset.eventsHandler == 'date-box-change-month' && e.target.dataset.dateAllowed == 'true'){
+      var targetDate = new Date(parseInt(e.target.dataset.date));
+      calendar.dateBox.updateBox(targetDate, document.querySelector('.dateBox'), calendar.displayedDate);
+    }
+    if(e.target.dataset.eventsHandler == 'date-box-date' && e.target.dataset.dateAllowed == 'true'){
+      calendar.drawDay(new Date(parseInt(e.target.dataset.date)));
+    }
+    if(e.target.classList.contains('sabai-salud-calendar-date')){
+      calendar.dateBox.drawBox(calendar.displayedDate, calendar.div.querySelector('.sabai-salud-calendar-date'), calendar.displayedDate);
     }
   });
   this.drawDay(new Date(this.display.startDate));
