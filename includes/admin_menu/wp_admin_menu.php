@@ -12,7 +12,50 @@ function display_massage_menu(){
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	echo '<div class="wrap">';
-	echo '<p>Options.</p>';
+	?>
+
+	<h1>Massage Types</h1><br/>
+<form id='ss_massage_types_form'>
+	<div id='ss_massage_types'>
+<?php
+	foreach(get_massage_types() as $type){
+		$checked = "";
+		if($type['allowbookings'] == 1) $checked = " checked";
+		echo "<div class='massageType' data-type-id='{$type["id"]}'><label>Name <input type='text' name='name' value='{$type["name"]}' disabled></input></label> <label>Display <input type='text' name='displayname' value='{$type["displayname"]}'></input></label> <label>Mins <input type='number' min='0' max='180' name='length' value='{$type["length"]}'></input></label> <label>Allow Bookings <input name='allowbookings' type='checkbox'$checked></input></label></div>";
+	}
+?>
+	</div>
+	<div class='button newType'>+</div>
+	<br/><br/>
+	<input type='submit' value='Save'></input><br/><br/>
+</form>
+	<h1>Default Opening Hours</h1>
+<form id='ss_massage_openings_form'>
+<?php
+	$defaultOpenings = get_default_availability();
+	$days = array(
+		"1"=>"Monday",
+		"2"=>"Tuesday",
+		"3"=>"Wednesday",
+		"4"=>"Thursday",
+		"5"=>"Friday",
+		"6"=>"Saturday",
+		"0"=>"Sunday"
+	);
+	foreach($days as $i=>$name){
+		echo "<h3>$name</h3>";
+		for($j=0; $j<3; $j++){
+			$start = $defaultOpenings[$i][$j]["start"];
+			$start = str_pad(intval($start/60), 2, "0", STR_PAD_LEFT) . ":" . str_pad($start % 60, 2, "0", STR_PAD_LEFT);
+			$end = $defaultOpenings[$i][$j]["end"];
+			$end = str_pad(intval($end/60), 2, "0", STR_PAD_LEFT) . ":" . str_pad($end % 60, 2, "0", STR_PAD_LEFT);
+			echo "<label>Start<input type='time' name='$i-$j-start' value='$start'></input></label> <label>End <input type='time' name='$i-$j-end' value='$end'></input></label><br/>";
+		}
+	}
+?><br/>
+	<input type='submit' value='Save'></input>
+</form>
+	<?php
 	echo '</div>';
 }
 ?>
