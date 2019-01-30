@@ -30,6 +30,10 @@ SabaiSaludCalendar.prototype.draw = function(div){
     </div>
   `;
 
+  var endDate = new Date(this.display.startDate);
+  endDate.setDate(endDate.getDate() + this.display.maxFutureDays);
+  this.dateBox = new SabaiSaludDateBox(this, this.display.startDate, endDate);
+
   var self = this;
 
   window.addEventListener('click', function(e){
