@@ -534,6 +534,11 @@ jQuery(document).ready(function(){
 					`;
 				break;
 
+				case "opening-hours-back":
+					document.querySelector('#ss_booking_current_action').style.display = 'none';
+					bookingManager.showDayControls();
+				break;
+
 				case "duplicate-booking":
 					document.querySelector('#ss_booking_calendar_holder').style.display = 'block';
 					document.querySelector('#ss_booking_list').style.display = 'none';
