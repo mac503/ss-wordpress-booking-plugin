@@ -9,7 +9,7 @@ function enqueue(){
 	$ver = date("ymd-Gis", filemtime( PUBLIC_DIR . 'css/sabai-salud-booking-global.css' ));
 	wp_enqueue_style('global', PUBLIC_DIR.'css/sabai-salud-booking-global.css', false, $ver);
 	//client only
-	if(is_page('reservar')){
+	if(is_page('reservar-masaje')){
 		$ver = date("ymd-Gis", filemtime( PUBLIC_DIR . 'css/sabai-salud-booking-calendar.css' ));
 		wp_enqueue_style('ss-booking-calendar', PUBLIC_DIR.'css/sabai-salud-booking-calendar.css', false, $ver);
 		$ver = date("ymd-Gis", filemtime( PUBLIC_DIR . 'js/calendar.js' ));
