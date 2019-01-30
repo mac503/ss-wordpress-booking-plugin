@@ -15,8 +15,9 @@ SabaiSaludCalendar.prototype.draw = function(div){
   div.classList.add('sabai-salud-calendar');
   //draw the calendar (TODO use babel to make sure all browsers can deal with this)
   div.innerHTML = `
+    &nbsp;
     <div class='sabai-salud-calendar-header'>
-      <span class='sabai-salud-calendar-nav prev'>&#x2B05; Prev</span><span class='sabai-salud-calendar-date'></span><span class='sabai-salud-calendar-nav next'>Next &#x27A1;</span>
+      <span class='sabai-salud-calendar-nav prev'>⇦ Prev</span><div class='sabai-salud-calendar-date'></div><span class='sabai-salud-calendar-nav next'>Next ⇨</span>
     </div>
     <div class='sabai-salud-calendar-body' data-display-prep-time='${this.displayPrepTime}'>
       ${Array(this.display.dayEnd-this.display.dayStart).fill().map((x,i)=>i+this.display.dayStart).map(x=>`
