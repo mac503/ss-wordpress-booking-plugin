@@ -4,7 +4,7 @@
 
     $data = get_time_block($admin);
 
-    //TODO replace this with a lookup to database, once figured out where it will be stored
+    /*
     $defaultOpenings = array(
       array(
         array("start" => 14.5*60, "end" => 16*60)
@@ -33,10 +33,12 @@
         array("start" => 9*60, "end" => 13*60)
       )
     );
-
+    */
     global $wpdb;
-
     if($forUpdate == true) $lockString = " for update";
+
+    $defaultOpenings = get_default_availability($forUpdate);
+
     $overrideOpenings = $wpdb->get_results("select * from {$wpdb->prefix}ss_booking_windows where (windowsdate between '{$data["startDate"]}' and '{$data["endDate"]}') and IF(start <> 0 and end <> 0, 1, 0)$lockString", ARRAY_A );
     $overrideOpeningsTemp = array();
 
