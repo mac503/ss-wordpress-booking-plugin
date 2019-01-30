@@ -62,25 +62,25 @@ jQuery(document).ready(function(){
 			<div class='closeIcon' data-action='cancel-add-booking'></div>
 			<form id='ss_new_booking_form'>
 			<u>New Booking</u><p>
-				<span id='ss_new_booking_date_time'><b>Select date/time from the calendar above.</b></span><br/>
+				<span id='ss_new_booking_date_time'><b>Select date/time from the calendar above.</b></span><br/><br/>
 				<input type='hidden' id='ss_booking_new_date'></input>
 				<input type='hidden' id='ss_booking_new_time'></input>
-				<label for="ss_new_type">Type</label><br/>
+				<label for="ss_new_type">Type</label>
 				<select id='ss_new_type'>
 					${
 						bookingManager.types.map(x=>`
 							<option data-massage-length="${x.length}" value="${x.name}"${orig.type == x.name ? ' selected' : ''}>${x.name}</option>
 						`).join('')
 					}
-				</select><br/>
+				</select>
 				<label for="ss_new_name">Name</label>
-				<input type='text' id='ss_new_name' required value='${orig.name}'></input><br/>
+				<input type='text' id='ss_new_name' required value='${orig.name}'></input>
 				<label for="ss_new_surnames">Surnames</label>
-				<input type='text' id='ss_new_surnames' required value='${orig.surnames}'></input><br/>
+				<input type='text' id='ss_new_surnames' required value='${orig.surnames}'></input>
 				<label for="ss_new_email">Email</label>
-				<input type='email' id='ss_new_email' required value='${orig.email}'></input><br/>
+				<input type='email' id='ss_new_email' required value='${orig.email}'></input>
 				<label for="ss_new_phone">Phone</label>
-				<input type='phone' id='ss_new_phone' required value='${orig.phone}'></input><br/><p>
+				<input type='tel' id='ss_new_phone' required value='${orig.phone}'></input>
 				<input type='checkbox' id='ss_booking_email_customer'></input> <label for="ss_booking_email_customer">Email customer confirmation?</label>
 			</form>
 			<div id='ss_booking_item_actions'>
