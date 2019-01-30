@@ -2,7 +2,6 @@ jQuery(document).ready(function(){
 	jQuery.ajax({
 		type: "post",url: ajax.url,data: { action: 'get_masked' },
 		success: function(res){
-			console.log(res);
       calendar = new SabaiSaludCalendar({
         "dayStart": res.dayStart,
         "dayEnd": res.dayEnd,
@@ -10,6 +9,10 @@ jQuery(document).ready(function(){
         "maxFutureDays": res.days.length,
         "startDate": res.startDate
       }, res.days, []);
+
+			document.querySelector('#ss_scroll_target').style.display = 'block';
+			document.querySelector('#selected-text').style.display = 'block';
+			document.querySelector('#selected-text').innerHTML = 'Please suggest a date and time using the calendar above. <b>We will call to you confirm availability.';
 
       //set the selected type (and time)
       var typeInput = document.querySelector('#sabai-salud-calendar-input-type');
