@@ -81,7 +81,7 @@ SabaiSaludCalendar.prototype.acceptSelection = function(callback, nullCallback){
   this.drawDay(this.displayedDate);
 }
 
-SabaiSaludCalendar.prototype.select = function(date, time){
+SabaiSaludCalendar.prototype.select = function(date, time, animate=true){
   if(date == null || date == undefined || time == null || time == undefined){
     if(this.acceptSelectionNullCallback) this.acceptSelectionNullCallback();
     return false;
@@ -93,7 +93,7 @@ SabaiSaludCalendar.prototype.select = function(date, time){
     this.selectedTime = time;
     //get selected date in acceptable form
     var dateString = this.dateToMySQL(date);
-    this.acceptSelectionCallback(dateString, time);
+    this.acceptSelectionCallback(dateString, time, animate);
     this.drawSelected();
   }
   else{
@@ -167,22 +167,21 @@ SabaiSaludCalendar.prototype.updateGrainsAllowed = function(){
   }
 
   //revalidate selected slot in light of new data (and draw)
-  this.select(this.selectedDate, this.selectedTime);
+  this.select(this.selectedDate, this.selectedTime, false);
 }
 
 SabaiSaludCalendar.prototype.drawDay = function(date){
   //set start, max, display dates
+  date.setHours(0,0,0,0);
   var startDate = new Date(this.display.startDate);
   var maxDate = new Date();
   maxDate.setHours(0,0,0,0);
-  maxDate.setDate(maxDate.getDate()+this.maxFutureDays);
+  maxDate.setDate(maxDate.getDate()+this.display.maxFutureDays);
   if(date<startDate){
     this.drawDay(startDate);
     return;
   }
-  var datePlusOne = new Date(date);
-  datePlusOne.setDate(datePlusOne.getDate() + 1);
-  if(datePlusOne>maxDate){
+  if(date>maxDate){
     this.drawDay(maxDate);
     return;
   }
