@@ -91,7 +91,14 @@ jQuery(document).ready(function(){
 
 		if(id) calendar.selectType(document.querySelector('#ss_new_type').selectedOptions[0].value, document.querySelector('#ss_new_type').selectedOptions[0].dataset.massageLength);
 		else calendar.selectType(bookingManager.types[0].name, bookingManager.types[0].length);
-		bookingManager.setMode('picking', function(dateString, time){
+		bookingManager.setMode('picking', function(dateString, time, animate){
+			if(animate){
+				var offset = jQuery('#ss_booking_current_action').offset(); // Contains .top and .left
+				offset.top -= 100;
+				jQuery('html, body').animate({
+						scrollTop: offset.top,
+				});
+			}
 			var booking = calendar.highlightedBooking;
 			document.querySelector('#ss_new_booking_date_time').innerHTML = `
 				${time} ${new Date(dateString).toString().substr(0,10)}
@@ -111,8 +118,13 @@ jQuery(document).ready(function(){
   }
 
 	bookingManager.setMode = function(mode, pickCallback, pickNullCallback){
+		console.log(mode);
 		switch(mode){
 			case "selecting":
+				var offset = jQuery('#ss_booking_calendar').offset(); // Contains .top and .left
+				jQuery('html, body').animate({
+						scrollTop: offset.top,
+				});
 				this.mode = 'selecting';
 				bookingManager.showDayControls();
 				calendar.allowSelectBooking();
@@ -125,6 +137,10 @@ jQuery(document).ready(function(){
 				delete document.querySelector('#ss_booking_menu').dataset.allow;
 			break;
 			case "picking":
+				var offset = jQuery('#ss_booking_calendar').offset(); // Contains .top and .left
+				jQuery('html, body').animate({
+						scrollTop: offset.top,
+				});
 				this.mode = 'picking';
 				bookingManager.hideDayControls();
 				delete document.querySelector('#ss_booking_menu').dataset.allow;
@@ -165,13 +181,23 @@ jQuery(document).ready(function(){
   bookingManager.displayBooking = function(id, message){
     var booking = calendar.bookings.find(x=>x.id==id);
     if(booking){
+
+			requestAnimationFrame(function(){
+				var offset = jQuery('#ss_booking_current_action').offset(); // Contains .top and .left
+				offset.top -= 500;
+				jQuery('html, body').animate({
+						scrollTop: offset.top,
+				});
+			});
+
       document.querySelector('#ss_booking_current_action').style.display = 'block';
       document.querySelector('#ss_booking_current_action').innerHTML = `
         <div class='closeIcon' data-action='clear-booking'></div>
 				${message != undefined ? `${message}<br/>` : ''}
         <b>${booking.confirmed == 1 ? '' : 'UNCONFIRMED<br/>'}</b>
-        ${booking.start.substr(11, 5)} ${new Date(booking.start.substr(0,10)).toString().substr(0,10)} - ${booking.type}<br/>
-        ${booking.nombre} ${booking.apellidos}<br/>
+				${booking.nombre} ${booking.apellidos}<br/>
+				${booking.type}<br/>
+        ${booking.start.substr(11, 5)}, ${new Date(booking.start.substr(0,10)).toString().substr(0,10)}<br/>
 				<a href='tel:${booking.phone}'>${booking.phone}</a><br/>
         <a href='mailto:${booking.email}'>${booking.email}</a><br/>
         <div id='ss_booking_item_actions'>
