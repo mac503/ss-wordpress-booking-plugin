@@ -403,7 +403,14 @@ jQuery(document).ready(function(){
 
         case "change-booking":
 				 	calendar.selectType(calendar.highlightedBooking.type, calendar.highlightedBooking.length);
-					bookingManager.setMode('picking', function(dateString, time){
+					bookingManager.setMode('picking', function(dateString, time, animate){
+						if(animate){
+							var offset = jQuery('#ss_booking_current_action').offset(); // Contains .top and .left
+							offset.top -= 100;
+							jQuery('html, body').animate({
+							    scrollTop: offset.top,
+							});
+						}
 						var booking = calendar.highlightedBooking;
 						document.querySelector('#ss_booking_current_action').innerHTML = `
 							<b>${booking.confirmed == 1 ? '' : 'UNCONFIRMED<br/>'}</b>
