@@ -21,10 +21,17 @@ jQuery(document).ready(function(){
 			calendar.draw(document.querySelector('#ss_booking_calendar'));
 
       //allow the calendar to accept selections, and tell it what else to do when it does
-      calendar.acceptSelection(function(dateString, time){
+      calendar.acceptSelection(function(dateString, time, animate){
+				if(animate){
+					var offset = jQuery('#ss_scroll_target').offset(); // Contains .top and .left
+					offset.top -= 100;
+					jQuery('html, body').animate({
+					    scrollTop: offset.top,
+					}, 1000);
+				}
         document.querySelector('#sabai-salud-calendar-input-time').value = time;
         document.querySelector('#sabai-salud-calendar-input-date').value = dateString;
-        document.querySelector('#selected-text').dataset.dateTime = new Date(dateString).toString().substr(0,10) + ' ' + time;
+				document.querySelector('#selected-text').innerHTML = `${new Date(dateString).toString().substr(0,10)} - ${time}. <b>We will call you to confirm availability.</b>`;
       }, function(){ //callback in case selection not allowed
         delete document.querySelector('#selected-text').dataset.dateTime;
         document.querySelector('#sabai-salud-calendar-input-date').value = null;
