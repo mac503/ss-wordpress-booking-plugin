@@ -6,6 +6,13 @@ function client_booking_page(){
   ob_start();
   session_start();
   ?>
+  <div id='ss_messages'>
+  <?php
+    if($_GET['data_id']){
+      echo "<span style='font-size: 1.5em'>There was a problem with your request.<br/><b>".$_SESSION['DATA_'.$_GET['data_id']]['message']."</b></span>";
+    }
+  ?>
+  </div>
   <div id='ss_booking_calendar'></div>
   <div id='ss_booking_calendar_form'>
     <form id='form' action='<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>' method='post'>
@@ -14,11 +21,6 @@ function client_booking_page(){
       if($_GET['data_id'] && $_SESSION['DATA_'.$_GET['data_id']]['dataPassed'] == true) echo '<input type="hidden" id="sabai-salud-calendar-input-passed" value="true">';
       else echo '<input type="hidden" id="sabai-salud-calendar-input-passed" value="false">';
     ?>
-      <b><?php
-      if($_GET['data_id']){
-        echo $_SESSION['DATA_'.$_GET['data_id']]['message'];
-      }
-      ?></b>
       <label id='ss_scroll_target' for="sabai-salud-calendar-input-date" style="display:none">Date & Time</label>
       <div id='selected-text'>Please suggest a date and time. <b>We will call to you confirm availability.</b></div>
       <div id='dateTimeEntry'>
