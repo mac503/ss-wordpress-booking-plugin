@@ -3,7 +3,6 @@ function manage_bookings_page(){
   ob_start();
 ?>
 <div id='ss_booking_menu'>
-  A TEST
   <div data-action='show-unconfirmed'>Unconfirmed</div>
   <div data-action='show-confirmed'>Confirmed</div>
   <div data-action='show-cancelled'>Cancelled</div>
