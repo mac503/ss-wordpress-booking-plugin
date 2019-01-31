@@ -79,11 +79,10 @@
 
 .dateBox .clickCover{
   position: fixed;
-  top: -50vh;
-  left: -50vw;
+  top: 0;
+  left: 0;
   width: 200vh;
   height: 200vw;
-  background-color: red;
   z-index: 1000;
   opacity: 0;
 }
