@@ -8,7 +8,12 @@ body, input, select{
   margin-top: 2em;
   width: 40%;
 }
-
+#ss_messages{
+  width: 40%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 1em;
+}
 .sabai-salud-calendar{
   user-select: none;
   cursor: default;
