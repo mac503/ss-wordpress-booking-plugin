@@ -23,6 +23,7 @@
   border: 1px solid black;
   border-radius: 3px;
   overflow: hidden;
+  box-shadow: 3px 3px lightgray;
 }
 .dateBox .monthYear{
   border-bottom: 1px solid black;
