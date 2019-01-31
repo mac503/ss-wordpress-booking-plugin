@@ -2,6 +2,7 @@ function SabaiSaludCalendar(display, availability, bookings, prepSlots = 0, disp
   this.display = display;
   this.display.startDate = new Date(this.display.startDate);
   this.display.startDate.setHours(0,0,0,0);
+  this.selectedDate = this.display.startDate;
   this.availability = availability;
   this.bookings = bookings;
   this.prepSlots = prepSlots;
@@ -114,6 +115,7 @@ SabaiSaludCalendar.prototype.drawSelected = function(){
 SabaiSaludCalendar.prototype.validateSelection = function(date, time, length){
   var self = this;
   var startDate = new Date(this.display.startDate);
+  date.setHours(0,0,0,0);
   var availability = JSON.parse(JSON.stringify(this.availability[this.daysBetween(startDate, date)]));
   //merge bookings with availability
   var excludeBookingId = -1;
