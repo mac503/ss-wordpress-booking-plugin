@@ -1,7 +1,6 @@
 jQuery(document).ready(function(){
 
 	window.addEventListener('input', function(e){
-		console.log(e.target);
 		if(e.target.nodeName == 'INPUT') e.target.classList.add('touched');
 		if(e.target.id == 'ss_new_type'){
 			calendar.selectType(e.target.selectedOptions[0].value, e.target.selectedOptions[0].dataset.massageLength);
@@ -34,6 +33,23 @@ jQuery(document).ready(function(){
 
 	bookingManager.timeMinutes = function(time){
 		return parseInt(time.split(':')[0])*60+parseInt(time.split(':')[1]);
+	}
+
+	bookingManager.showUnconfirmeds = function(){
+		document.querySelector('#ss_booking_calendar_holder').style.display = 'none';
+		document.querySelector('#ss_booking_list').style.display = 'block';
+		document.querySelector('#ss_booking_list_search_box').value = '';
+		var today = new Date();
+		today.setHours(0,0,0,0);
+		bookingManager.showList(x=>x.confirmed!=1 && x.deleted !=1 && (new Date(x.start) > today), 'unconfirmed');
+	}
+
+	bookingManager.zoomToBooking = function(id){
+		document.querySelector('#ss_booking_calendar_holder').style.display = 'block';
+		document.querySelector('#ss_booking_list').style.display = 'none';
+		var date = new Date(calendar.bookings.find(x=>x.id == id).start.substr(0,10));
+		calendar.drawDay(date);
+		bookingManager.displayBooking(id);
 	}
 
 	bookingManager.addNew = function(id){
@@ -118,7 +134,6 @@ jQuery(document).ready(function(){
   }
 
 	bookingManager.setMode = function(mode, pickCallback, pickNullCallback){
-		console.log(mode);
 		switch(mode){
 			case "selecting":
 				var offset = jQuery('#ss_booking_calendar').offset(); // Contains .top and .left
@@ -253,12 +268,7 @@ jQuery(document).ready(function(){
 						bookingManager.showList(x=>x.confirmed==1 && x.deleted !=1 && (new Date(x.start) > today), 'confirmed');
 					break;
 					case "show-unconfirmed":
-						document.querySelector('#ss_booking_calendar_holder').style.display = 'none';
-						document.querySelector('#ss_booking_list').style.display = 'block';
-						document.querySelector('#ss_booking_list_search_box').value = '';
-						var today = new Date();
-						today.setHours(0,0,0,0);
-						bookingManager.showList(x=>x.confirmed!=1 && x.deleted !=1 && (new Date(x.start) > today), 'unconfirmed');
+						bookingManager.showUnconfirmeds();
 					break;
 					case "show-cancelled":
 						document.querySelector('#ss_booking_calendar_holder').style.display = 'none';
@@ -297,11 +307,7 @@ jQuery(document).ready(function(){
         break;
 
 				case "zoom-to-booking":
-					document.querySelector('#ss_booking_calendar_holder').style.display = 'block';
-					document.querySelector('#ss_booking_list').style.display = 'none';
-					var date = new Date(calendar.bookings.find(x=>x.id == e.target.dataset.id).start.substr(0,10));
-					calendar.drawDay(date);
-					bookingManager.displayBooking(e.target.dataset.id);
+					bookingManager.zoomToBooking(e.target.dataset.id);
 				break;
 
         case "confirm-confirm-booking":
@@ -314,7 +320,6 @@ jQuery(document).ready(function(){
 							emailCustomer: document.querySelector('#ss_booking_email_customer').checked
             },
         		success: function(res){
-							console.log(res);
 							if(res.success){
                 calendar.availability = res.data.days;
 								calendar.bookings = res.data.bookings;
@@ -331,14 +336,6 @@ jQuery(document).ready(function(){
         break;
 
 				case "confirm-change-booking":
-					console.log({
-						action: 'change_booking',
-						id: calendar.highlightedBooking.id,
-						date: document.querySelector('#ss_booking_new_date').value,
-						time: document.querySelector('#ss_booking_new_time').value,
-						type: calendar.highlightedBooking.type,
-						emailCustomer: document.querySelector('#ss_booking_email_customer').checked
-					});
 					jQuery.ajax({
 						type:"post", url:ajax.url, data:{
 							action: 'change_booking',
@@ -349,7 +346,6 @@ jQuery(document).ready(function(){
 							emailCustomer: document.querySelector('#ss_booking_email_customer').checked
 						},
 						success: function(res){
-							console.log(res);
 							if(res.success){
 								calendar.availability = res.data.days;
 								calendar.bookings = res.data.bookings;
@@ -377,7 +373,6 @@ jQuery(document).ready(function(){
 							emailCustomer: document.querySelector('#ss_booking_email_customer').checked
 						},
 						success: function(res){
-							console.log(res);
 							if(res.success){
 								calendar.availability = res.data.days;
 								calendar.bookings = res.data.bookings;
@@ -492,7 +487,6 @@ jQuery(document).ready(function(){
 							data: data
 						},
 						success: function(res){
-							console.log(res);
 							document.querySelector('#ss_booking_current_action').style.display = 'none';
 							if(res.success){
 								calendar.availability = res.data.days;
@@ -569,7 +563,6 @@ jQuery(document).ready(function(){
 					jQuery.ajax({
 						type:"post", url:ajax.url, data:data,
 						success: function(res){
-							console.log(res);
 							if(res.success){
 								calendar.availability = res.data.days;
 								calendar.bookings = res.data.bookings;
@@ -599,7 +592,6 @@ jQuery(document).ready(function(){
 	jQuery.ajax({
 		type: "post",url: ajax.url,data: { action: 'get_detailed' },
 		success: function(res){
-			console.log(res);
       calendar = new SabaiSaludCalendar({
         "dayStart": res.dayStart,
         "dayEnd": res.dayEnd,
@@ -614,8 +606,18 @@ jQuery(document).ready(function(){
 			bookingManager.availability = res.availability;
 			bookingManager.setMode('selecting');
 
-			if(calendar.bookings.filter(x=>x.confirmed==0&&x.deleted==0).length>0){
-
+			var today = new Date();
+			var linkedBooking = window.location.search.match(/bookingId=(\d+)/);
+			if(linkedBooking!=null){
+				bookingManager.zoomToBooking(parseInt(linkedBooking[1]));
+			}
+			else if(calendar.bookings.filter(x=>x.confirmed==0&&x.deleted==0&&(new Date(x.start) > today)).length>0){
+				bookingManager.showUnconfirmeds();
+			}
+			else{
+				//otherwise, display the calendar for today
+				document.querySelector('#ss_booking_calendar_holder').style.display = 'block';
+				document.querySelector('#ss_booking_list').style.display = 'none';
 			}
 
 		}
