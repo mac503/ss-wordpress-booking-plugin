@@ -82,6 +82,7 @@ SabaiSaludCalendar.prototype.acceptSelection = function(callback, nullCallback){
 }
 
 SabaiSaludCalendar.prototype.select = function(date, time, animate=true){
+  if(date == undefined) return false;
   if(date == null || date == undefined || time == null || time == undefined){
     if(this.acceptSelectionNullCallback) this.acceptSelectionNullCallback();
     return false;
