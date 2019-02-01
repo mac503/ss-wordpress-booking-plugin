@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'admin_post_no_priv_booking_request', 'handle_booking_request');
+add_action( 'admin_post_nopriv_booking_request', 'handle_booking_request');
 add_action( 'admin_post_booking_request', 'handle_booking_request');
 
 function handle_booking_request(){
