@@ -11,7 +11,7 @@
   left: 0px;
   user-select: none;
   font-size: 13px;
-  z-index: 1001;
+  z-index: 1500;
 }
 .dateBox .shell{
   position: absolute;
