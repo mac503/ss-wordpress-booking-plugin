@@ -17,7 +17,10 @@ function handle_booking_request(){
       'date' => $_POST['date'],
       'time' => $_POST['time']
     );
+
     wp_safe_redirect( get_permalink(get_page_by_title( 'solicitud de reserva recibida' ))."?data_id=".pass_session_data($toPass) );
+
+    send_request_email($wpdb->insert_id, $_POST);
   }
   else{
     //commit the nothingness
