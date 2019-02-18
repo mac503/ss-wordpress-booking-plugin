@@ -76,7 +76,7 @@ function newMassage(){
   var count = document.querySelectorAll('.massageType').length;
   var div = document.createElement('div');
   div.className='massageType';
-  div.dataset.typeId = count;
+  div.dataset.typeId = count+1;
   div.innerHTML = "<label>Name <input type='text' name='name'></input></label> <label>Display <input type='text' name='displayname'></input></label> <label>Mins <input type='number' min='0' max='180' name='length'></input></label> <label>Allow Bookings <input type='checkbox' checked  name='allowbookings'></input></label> <span class='removeType' style='cursor:pointer; font-size: 2em; position: relative; top: .2em;'>×</span>";
   document.querySelector('#ss_massage_types').appendChild(div);
   div.querySelector('input').focus();
