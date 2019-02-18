@@ -27,7 +27,7 @@ function display_massage_menu(){
 	</div>
 	<div class='button newType'>+</div>
 	<br/><br/>
-	<input type='submit' value='Save'></input><br/><br/>
+	<input type='submit' value='Save'></input> <div class='workingIndicator'></div><br/><br/>
 </form>
 	<h1>Default Opening Hours</h1>
 <form id='ss_massage_openings_form'>
@@ -53,7 +53,7 @@ function display_massage_menu(){
 		}
 	}
 ?><br/>
-	<input type='submit' value='Save'></input>
+	<div><input type='submit' value='Save'></input> <div class='workingIndicator'></div></div>
 </form>
 	<?php
 	echo '</div>';

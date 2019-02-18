@@ -41,7 +41,10 @@ function enqueue_admin($hook) {
     if ( 'toplevel_page_sabai-salud-massage-booking' != $hook ) {
         return;
     }
-    wp_enqueue_script( 'ss_booking_admin', PUBLIC_DIR.'js/settings.js' );
+		$ver = date("ymd-Gis", filemtime( PUBLIC_DIR . 'css/sabai-salud-booking-settings.css' ));
+		wp_enqueue_style('ss-booking-calendar', PUBLIC_DIR.'css/sabai-salud-booking-settings.css', false, $ver);
+		$ver = date("ymd-Gis", filemtime( PUBLIC_DIR . 'js/settings.js' ));
+    wp_enqueue_script( 'ss_booking_admin', PUBLIC_DIR.'js/settings.js', false, $ver );
 		wp_localize_script( 'ss_booking_admin', 'ajax', array(
 			'url' => admin_url( 'admin-ajax.php' )
 		) );
