@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 
 	window.addEventListener('click', function(e){
-    if(e.target.classList.contains('newType')) newMassage();
+    if(e.target.classList.contains('newType') && e.target.classList.contains('disable') == false) newMassage();
     if(e.target.classList.contains('removeType')) e.target.parentNode.parentNode.removeChild(e.target.parentNode);
   });
 
@@ -17,15 +17,25 @@ jQuery(document).ready(function(){
         allowbookings: x.querySelector('[name="allowbookings"]').checked ? 1 : 0
       }
     });
+    e.target.querySelector('.workingIndicator').innerHTML = '<i>... Saving ...</i>';
+    e.target.querySelector('.newType').classList.add('disable');
+    [].forEach.call(e.target.querySelectorAll('input[name="name"]:not(:disabled)'), function(newInput){
+      newInput.disabled = true;
+    });
+    [].forEach.call(e.target.querySelectorAll('.removeType'), function(removeType){
+      removeType.parentNode.removeChild(removeType);
+    });
     jQuery.ajax({
          data: {action: 'update_massage_types', data: types },
          type: 'post',
          url: ajax.url,
          success: function(x){
-           console.log(x);
+           e.target.querySelector('.workingIndicator').innerHTML = 'Saved';
+           e.target.querySelector('.newType').classList.remove('disable');
          },
          error: function(jqXHR, exception){
-
+           e.target.querySelector('.workingIndicator').innerHTML = 'Error saving... please reload the page and try again.';
+           e.target.querySelector('.newType').classList.remove('disable');
          }
     });
   });
@@ -46,15 +56,16 @@ jQuery(document).ready(function(){
       }
       else opening[split[2]] = (x.value.split(':')[0] * 60) + parseInt(x.value.split(':')[1]);
     });
+    e.target.querySelector('.workingIndicator').innerHTML = '<i>... Saving ...</i>';
     jQuery.ajax({
          data: {action: 'update_massage_openings', data:openings },
          type: 'post',
          url: ajax.url,
          success: function(x){
-           console.log(x);
+           e.target.querySelector('.workingIndicator').innerHTML = 'Saved';
          },
          error: function(jqXHR, exception){
-
+           e.target.parentNode.querySelector('.workingIndicator').innerHTML = 'Error saving... please reload the page and try again.';
          }
     });
   });
