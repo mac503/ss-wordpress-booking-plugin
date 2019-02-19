@@ -79,7 +79,7 @@ function plugin_install(){
     dbDelta( $sql3 );
 		dbDelta( $sql4 );
 		dbDelta( $sql5 );
-    dbDelta( "insert into $table_name values ( \"script_location\", \"\" )" );
+    dbDelta( "INSERT INTO $table_name VALUES ( 'script_location','' );" );
 }
 
 ?>
