@@ -70,8 +70,7 @@ function plugin_install(){
 
     $sql5 = "CREATE TABLE $table_name (
       setting tinytext NOT NULL,
-      value tinytext,
-      PRIMARY KEY  (setting)
+      value tinytext
     ) $charset_collate;";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
