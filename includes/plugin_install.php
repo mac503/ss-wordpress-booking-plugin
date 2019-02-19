@@ -66,7 +66,7 @@ function plugin_install(){
 		  PRIMARY KEY  (weekday, idWithinDay)
 		) $charset_collate;";
 
-    $table_name = $wpdb->prefix . "ss_booking_default_settings";
+    $table_name = $wpdb->prefix . "ss_booking_settings";
 
     $sql5 = "CREATE TABLE $table_name (
       setting tinytext NOT NULL,
@@ -79,6 +79,7 @@ function plugin_install(){
     dbDelta( $sql3 );
 		dbDelta( $sql4 );
 		dbDelta( $sql5 );
+    dbDelta( "insert into $table_name values ( \"script_location\", \"\" )" );
 }
 
 ?>
