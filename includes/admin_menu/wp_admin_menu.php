@@ -55,6 +55,16 @@ function display_massage_menu(){
 ?><br/>
 	<div><input type='submit' value='Save'></input> <div class='workingIndicator'></div></div>
 </form>
+<br/>
+<h1>Email Script Location (do not edit)</h1><br/>
+<form id='ss_massage_script_form'>
+<div id='ss_massage_script'>
+<label>Location <input type='text' name='script_location' style='width: 50%;' value='<?php echo get_script_location(); ?>'></input></label>
+</div>
+<br/>
+<input type='submit' value='Save'></input> <div class='workingIndicator'></div><br/><br/>
+</form>
+
 	<?php
 	echo '</div>';
 }

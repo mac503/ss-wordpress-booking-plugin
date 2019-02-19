@@ -9,6 +9,7 @@
   add_action( 'wp_ajax_change_opening_hours', 'change_opening_hours' );
   add_action( 'wp_ajax_update_massage_types', 'update_massage_types' );
   add_action( 'wp_ajax_update_massage_openings', 'update_massage_openings' );
+  add_action( 'wp_ajax_update_script_location', 'update_script_location' );
 
   function confirm_booking(){
     wp_send_json(update_booking($_POST["id"], array(
@@ -89,6 +90,19 @@
     foreach($_POST["data"] as $row){
       $wpdb->replace("{$wpdb->prefix}ss_booking_default_windows",$row);
     }
+    wp_send_json(true);
+  }
+
+  function update_script_location(){
+    global $wpdb;
+
+    $wpdb->update(
+    	"{$wpdb->prefix}ss_booking_settings",
+    	array(
+    		'value' => $_POST["data"],
+    	),
+    	array( 'setting' => "script_location" )
+    );
     wp_send_json(true);
   }
 

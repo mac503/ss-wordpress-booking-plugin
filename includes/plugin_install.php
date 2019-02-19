@@ -66,11 +66,20 @@ function plugin_install(){
 		  PRIMARY KEY  (weekday, idWithinDay)
 		) $charset_collate;";
 
+    $table_name = $wpdb->prefix . "ss_booking_default_settings";
+
+    $sql5 = "CREATE TABLE $table_name (
+      setting tinytext NOT NULL,
+      value tinytext,
+      PRIMARY KEY  (setting)
+    ) $charset_collate;";
+
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql1 );
 		dbDelta( $sql2 );
     dbDelta( $sql3 );
 		dbDelta( $sql4 );
+		dbDelta( $sql5 );
 }
 
 ?>

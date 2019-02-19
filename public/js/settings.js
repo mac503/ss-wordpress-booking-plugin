@@ -40,6 +40,27 @@ jQuery(document).ready(function(){
     });
   });
 
+
+	jQuery('#ss_massage_script_form').submit(function(e){
+		e.preventDefault();
+		var value = e.target.querySelector('input[name="script_location"]').value;
+		e.target.querySelector('.workingIndicator').innerHTML = '<i>... Saving ...</i>';
+		e.target.querySelector('input[type="text"]').disabled = true;
+		jQuery.ajax({
+				 data: {action: 'update_script_location', data: value },
+				 type: 'post',
+				 url: ajax.url,
+				 success: function(x){
+					 e.target.querySelector('.workingIndicator').innerHTML = 'Saved';
+					 e.target.querySelector('input[type="text"]').disabled = false;
+				 },
+				 error: function(jqXHR, exception){
+					 e.target.querySelector('.workingIndicator').innerHTML = 'Error saving... please reload the page and try again.';
+ 					 e.target.querySelector('input[type="text"]').disabled = false;
+				 }
+		});
+	});
+
   jQuery('#ss_massage_openings_form').submit(function(e){
     e.preventDefault();
     var openings = [];
