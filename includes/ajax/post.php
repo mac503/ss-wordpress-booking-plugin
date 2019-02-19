@@ -12,12 +12,27 @@
   add_action( 'wp_ajax_update_script_location', 'update_script_location' );
 
   function confirm_booking(){
+    my_log(json_encode($_POST));
+    if($_POST["emailCustomer"] == "true"){
+      $data = get_single_booking_data($_POST["id"]);
+      $data['date'] = explode(" ", $data['start'])[0];
+      $data['time'] = explode(" ", $data['start'])[1];
+      $data['name'] = $data['nombre'];
+      send_email("confirm", $_POST["id"], $data);
+    }
     wp_send_json(update_booking($_POST["id"], array(
       "confirmed"=>1
     )));
   }
 
   function delete_booking(){
+    if($_POST["emailCustomer"] == "true"){
+      $data = get_single_booking_data($_POST["id"]);
+      $data['date'] = explode(" ", $data['start'])[0];
+      $data['time'] = explode(" ", $data['start'])[1];
+      $data['name'] = $data['nombre'];
+      send_email("delete", $_POST["id"], $data);
+    }
     wp_send_json(update_booking($_POST["id"], array(
       "deleted"=>1
     )));
@@ -33,6 +48,13 @@
           "start"=>$_POST["date"]." ".$_POST["time"].":00"
       ));
       $wpdb->query('COMMIT');
+      if($_POST["emailCustomer"] == "true"){
+        $data = get_single_booking_data($_POST["id"]);
+        $data['name'] = $data['nombre'];
+        $data["date"] = $_POST["date"];
+        $data["time"] = $_POST["time"];
+        send_email("change", $_POST["id"], $data);
+      }
       wp_send_json($result);
     }
     else{
@@ -49,6 +71,11 @@
       $result = insert_booking($_POST);
       if($result == 1){
         $wpdb->query('COMMIT');
+        if($_POST["emailCustomer"] == "true"){
+          $data = $_POST;
+          $data['id'] = $wpdb->insert_id;
+          send_email("confirm", $data['id'], $data);
+        }
         wp_send_json(array("success"=>true, "data"=>get_detailed_data(), "id"=>$wpdb->insert_id));
       }
       else{

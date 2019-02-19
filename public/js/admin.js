@@ -97,7 +97,7 @@ jQuery(document).ready(function(){
 				<input type='email' id='ss_new_email' required value='${orig.email}'></input>
 				<label for="ss_new_phone">Phone</label>
 				<input type='tel' id='ss_new_phone' required value='${orig.phone}'></input>
-				<input type='checkbox' id='ss_booking_email_customer'></input> <label for="ss_booking_email_customer">Email customer confirmation?</label>
+				<input type='checkbox' id='ss_booking_email_customer' checked></input> <label for="ss_booking_email_customer">Email customer confirmation?</label>
 			</form>
 			<div id='ss_booking_item_actions'>
 				<div data-action='confirm-new-booking'>Confirm New Booking</div>
@@ -301,7 +301,7 @@ jQuery(document).ready(function(){
         case "confirm-booking":
           bookingManager.dialog(`
             <b>Confirm this booking?</b><p><p>
-            <input type='checkbox' id='ss_booking_email_customer'></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
+            <input type='checkbox' id='ss_booking_email_customer' checked></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
             <div data-action='confirm-confirm-booking'>Confirm Booking</div> <div data-action='dialog-back'>Back</div>
           `);
         break;
@@ -391,7 +391,7 @@ jQuery(document).ready(function(){
 				case "accept-change-booking":
 					bookingManager.dialog(`
 						<b>Confirm booking with new date/time?</b><p><p>
-						<input type='checkbox' id='ss_booking_email_customer'></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
+						<input type='checkbox' id='ss_booking_email_customer' checked></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
 						<div data-action='confirm-change-booking'>Confirm Booking</div> <div data-action='dialog-back'>Back</div>
 					`);
 				break;
@@ -445,7 +445,7 @@ jQuery(document).ready(function(){
         case "cancel-booking":
           bookingManager.dialog(`
             <b>Cancel this booking?</b><p><p>
-            <input type='checkbox' id='ss_booking_email_customer'></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
+            <input type='checkbox' id='ss_booking_email_customer' checked></input> <label for='ss_booking_email_customer'>Email customer</label><p><p>
             <div data-action='confirm-cancel-booking'>Cancel Booking</div> <div data-action='dialog-back'>Back</div>
           `);
         break;
