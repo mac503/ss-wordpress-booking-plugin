@@ -85,7 +85,7 @@ jQuery(document).ready(function(){
 				<select id='ss_new_type'>
 					${
 						bookingManager.types.map(x=>`
-							<option data-massage-length="${x.length}" value="${x.name}"${orig.type == x.name ? ' selected' : ''}>${x.name}</option>
+							<option data-massage-length="${x.length}" value="${x.name}"${orig.type == x.name ? ' selected' : ''}>${x.displayname}</option>
 						`).join('')
 					}
 				</select>
