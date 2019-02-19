@@ -56,7 +56,7 @@ function client_booking_page(){
             $selected = "";
             if($_GET["masaje"] == $type["name"]) $selected = " selected";
             echo "<option data-massage-length='{$type["length"]}' value='{$type["name"]}'$selected>";
-            echo $type["name"];
+            echo $type["displayname"];
             echo "</option>";
           }
         ?>
