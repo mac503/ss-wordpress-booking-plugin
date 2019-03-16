@@ -9,7 +9,7 @@ function client_booking_page(){
   <div id='ss_messages'>
   <?php
     if($_GET['data_id']){
-      echo "<span style='font-size: 1.5em'>There was a problem with your request.<br/><b>".$_SESSION['DATA_'.$_GET['data_id']]['message']."</b></span>";
+      echo "<span style='font-size: 1.5em'>Hubo un problema con su petición.<br/><b>".$_SESSION['DATA_'.$_GET['data_id']]['message']."</b></span>";
     }
   ?>
   </div>
@@ -21,8 +21,8 @@ function client_booking_page(){
       if($_GET['data_id'] && $_SESSION['DATA_'.$_GET['data_id']]['dataPassed'] == true) echo '<input type="hidden" id="sabai-salud-calendar-input-passed" value="true">';
       else echo '<input type="hidden" id="sabai-salud-calendar-input-passed" value="false">';
     ?>
-      <label id='ss_scroll_target' for="sabai-salud-calendar-input-date" style="display:none">Date & Time</label>
-      <div id='selected-text'>Please suggest a date and time. <b>We will call to you confirm availability.</b></div>
+      <label id='ss_scroll_target' for="sabai-salud-calendar-input-date" style="display:none">Fecha y Hora</label>
+      <div id='selected-text'>Por favor sugiera una fecha y hora usando el calendario de arriba. <b>Le contactaremos para confirmar disponibilidad</b></div>
       <div id='dateTimeEntry'>
         <label for="sabai-salud-calendar-input-date">Date</label> <select name='date' id='sabai-salud-calendar-input-date'>
           <?php
@@ -49,7 +49,7 @@ function client_booking_page(){
           ?>
         </select>
       </div>
-      <label for="sabai-salud-calendar-input-type">Type</label> <select name='type' id='sabai-salud-calendar-input-type' required>
+      <label for="sabai-salud-calendar-input-type">Tipo</label> <select name='type' id='sabai-salud-calendar-input-type' required>
         <?php
           $types = get_massage_types(false, true);
           foreach($types as $type){
@@ -63,9 +63,9 @@ function client_booking_page(){
       </select>
       <label for="sabai-salud-calendar-input-name">Nombre</label> <input type='text' name='name' id='sabai-salud-calendar-input-name' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['name'];?>' required></input>
       <label for="sabai-salud-calendar-input-surnames">Apellidos</label> <input type='text' name='surnames' id='sabai-salud-calendar-input-surnames' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['surnames'];?>' required></input>
-      <label for="sabai-salud-calendar-input-email">Email</label> <input type='email' name='email' id='sabai-salud-calendar-input-email' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['email'];?>' required></input>
-      <label for="sabai-salud-calendar-input-phone">Phone</label> <input type='tel' name='phone' id='sabai-salud-calendar-input-phone' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['phone'];?>' required></input>
-      <input type='checkbox' name='permission' id='sabai-salud-calendar-input-permission'></input> <label for="sabai-salud-calendar-input-permission">I am happy to receive emails from Sabai Salud about services which may interest me.</label><br><br>
+      <label for="sabai-salud-calendar-input-email">Correo electrónico</label> <input type='email' name='email' id='sabai-salud-calendar-input-email' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['email'];?>' required></input>
+      <label for="sabai-salud-calendar-input-phone">Teléfono</label> <input type='tel' name='phone' id='sabai-salud-calendar-input-phone' value='<?php if($_GET['data_id']) echo $_SESSION['DATA_'.$_GET['data_id']]['phone'];?>' required></input>
+      <input type='checkbox' name='permission' id='sabai-salud-calendar-input-permission'></input> <label for="sabai-salud-calendar-input-permission">Estoy de acuerdo en recibir emails de Sabai Salud sobre servicios que podrían interesarme.</label><br><br>
       <input type="submit" id='reserve-button' value="Reservar"></input>
     </form>
   </div>

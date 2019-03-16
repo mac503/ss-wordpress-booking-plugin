@@ -27,7 +27,7 @@ function handle_booking_request(){
     $wpdb->query('ROLLBACK');
 
     if($validation["success"] == false) $message = $validation["message"];
-    else $message = "There was an error requesting your booking, please try again.";
+    else $message = "Ha habido un error solicitando su reserva, por favor inténtelo de nuevo.";
 
     $toPass = array(
       'dataPassed' => true,
