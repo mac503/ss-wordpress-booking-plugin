@@ -3,37 +3,6 @@
   function get_basic_availability($forUpdate, $admin){
 
     $data = get_time_block($admin);
-
-    /*
-    $defaultOpenings = array(
-      array(
-        array("start" => 14.5*60, "end" => 16*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60),
-        array("start" => 17*60, "end" => 21*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60),
-        array("start" => 17*60, "end" => 21*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60),
-        array("start" => 17*60, "end" => 21*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60),
-        array("start" => 17*60, "end" => 21*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60),
-        array("start" => 17*60, "end" => 21*60)
-      ),
-      array(
-        array("start" => 9*60, "end" => 13*60)
-      )
-    );
-    */
     global $wpdb;
     if($forUpdate == true) $lockString = " for update";
 
